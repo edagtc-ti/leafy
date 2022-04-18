@@ -50,6 +50,7 @@
 
         </td>
         <td>
+            
             <h1>{{ $document->user->name }}<h1>
             <h3>Asesor de ventas</h3>
             {{ $document->user->email }}

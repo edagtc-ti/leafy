@@ -42,6 +42,7 @@
         @endif
                       
         <td> 
+            
             <h1>{{ $quotation->user->name }}<h1>
             <h3>Asesor de ventas</h3>
             {{ $quotation->user->email }}
