@@ -28,8 +28,7 @@
 
 <table border=0>
     <tr>
-          
-        @if($quotation-> establishment -> web_address=='www.tsl.pe')
+        <!-- @if($quotation-> establishment -> web_address=='www.tsl.pe')
             <td width="20%">
                 <div class="company_logo_box">
                     <img src="data:{{mime_content_type(public_path("storage/uploads/logos/logo_20602143016.png"))}};base64, {{base64_encode(file_get_contents(public_path("storage/uploads/logos/logo_20602143016.png")))}}" alt="TSL OPERADOR LOGISTICO S.A.C" class="company_logo" style="max-width: 150px;">
@@ -39,10 +38,8 @@
             <td width="20%">
                 {{--<img src="{{ asset('logo/logo.jpg') }}" class="company_logo" style="max-width: 150px">--}}
             </td>
-        @endif
-                      
+        @endif -->
         <td> 
-            
             <h1>{{ $quotation->user->name }}<h1>
             <h3>Asesor de ventas</h3>
             {{ $quotation->user->email }}
