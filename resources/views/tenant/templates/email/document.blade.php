@@ -41,7 +41,7 @@
             style="display:block"
             alt="{{$company->name}}" 
             class="company_logo" 
-            style="max-width: 150px;"
+            style="240px 120px;"
                 />
         </td>
         <td>
