@@ -51,6 +51,7 @@
         @endif
         <td width="50%" class="pl-3">
             <div class="text-left">
+              
                 <h4 class="">{{ $company->name }}</h4>
                 <h5>{{ 'RUC '.$company->number }}</h5>
                 <h6 style="text-transform: uppercase;">
