@@ -39,15 +39,16 @@
     @php
     $nombre_empresa = "";
 
-        if($quotation-> establishment -> web_address=='www.tsl.pe'){
-            $nombre_empresa = "TSL OPERADOR LOGISTICO S.A.C";
-            $ruc_empresa = "20602143016";
-        }
+    if($quotation-> establishment -> web_address=='www.tsl.pe'){
+        $nombre_empresa = "TSL OPERADOR LOGISTICO S.A.C";
+        $ruc_empresa = "20602143016";
+    }
 
-        if($quotation-> establishment -> web_address=='solinteac.ml'){
-            $nombre_empresa = "EDUARDO AUGUSTO CASTRO CALVO";
-            $ruc_empresa = "10731779975";
-        }
+    if($quotation-> establishment -> web_address=='solinteac.ml'){
+        $nombre_empresa = "EDUARDO AUGUSTO CASTRO CALVO";
+        $ruc_empresa = "10731779975";
+    }
+
     @endphp
       {{$nombre_empresa}}<br>{{'RUC '.$ruc_empresa}}  
     </span></p></td>
