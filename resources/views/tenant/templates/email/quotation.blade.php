@@ -50,7 +50,7 @@
     }
 
     @endphp
-      {{$nombre_empresa}}<br>{{'RUC '.$ruc_empresa}}  
+    {{$nombre_empresa}}<br>{{'RUC '.$ruc_empresa}}  
     </span></p></td>
     <td width="30"><div style="width: 30px;"></div></td><td color="#14ca47" direction="vertical" width="1" class="sc-jhAzac hmXDXQ" style="width: 1px; border-bottom: none; border-left: 1px solid rgb(20, 202, 71);"></td>
     <td width="30"><div style="width: 30px;"></div></td><td style="vertical-align: middle;"><table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;"><tbody><tr height="25" style="vertical-align: middle;"><td width="30" style="vertical-align: middle;">
