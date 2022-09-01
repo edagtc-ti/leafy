@@ -29,6 +29,12 @@
         <td width="50%" class="pl-3">
             <div class="text-left">
 
+                @isset($establishment->aditional_information)
+                    <h2>{{ ($establishment->aditional_information !== '-')? $establishment->aditional_information : '' }}</h2>
+                @endisset
+
+                <br>
+
                 <h4 class="">{{ $company->name }}</h4>
                 <h5>{{ 'RUC '.$company->number }}</h5>
                 <h6 style="text-transform: uppercase;">
@@ -49,9 +55,7 @@
                     <h6>{{ ($establishment->web_address !== '-')? 'Web: '.$establishment->web_address : '' }}</h6>
                 @endisset
 
-                @isset($establishment->aditional_information)
-                    <h6>{{ ($establishment->aditional_information !== '-')? $establishment->aditional_information : '' }}</h6>
-                @endisset
+                
             </div>
         </td>
         <td width="30%" class="border-box py-4 px-2 text-center">

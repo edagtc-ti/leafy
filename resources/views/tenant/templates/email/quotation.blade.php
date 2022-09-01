@@ -38,13 +38,14 @@
     <span>
     @php
     $nombre_empresa = "";
+    $ruc_empresa = "";
 
     if($quotation-> establishment -> web_address=='www.tsl.pe'){
         $nombre_empresa = "TSL OPERADOR LOGISTICO S.A.C";
         $ruc_empresa = "20602143016";
     }
 
-    if($quotation-> establishment -> web_address=='solinteac.ml'){
+    if($quotation-> establishment -> web_address=='www.solinteac.ml' || $quotation-> establishment -> web_address=='www.aguayuraq.ml' ||$quotation-> establishment -> web_address=='www.c4softsac.com'){
         $nombre_empresa = "EDUARDO AUGUSTO CASTRO CALVO";
         $ruc_empresa = "10731779975";
     }
@@ -88,7 +89,7 @@
        <b>AVISO LEGAL:</b> La presente información se envía únicamente a la persona a la que va dirigida y puede contener información de carácter confidencial o privilegiada. 
     Cualquier modificación, retransmisión, difusión u otro uso de esta información por personas o entidades distintas a la persona a la que va dirigida está prohibida. 
     Si usted lo ha recibido por error, por favor contacte con el remitente y borre el mensaje de cualquier ordenador. 
-    <b>{{ $nombre_empresa }}</b> no asume ninguna responsabilidad derivada del hecho de que terceras personas puedan llegar a conocer el contenido de este mensaje durante su transmisión.
+    <b>{{$nombre_empresa}}</b> no asume ninguna responsabilidad derivada del hecho de que terceras personas puedan llegar a conocer el contenido de este mensaje durante su transmisión.
 
 
 <br><br>

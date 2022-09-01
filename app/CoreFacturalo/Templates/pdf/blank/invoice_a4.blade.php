@@ -30,18 +30,51 @@
     {{--<title>{{ $document_number }}</title>--}}
     {{--<link href="{{ $path_style }}" rel="stylesheet" />--}}
 </head>
+
+
+
 <body>
 @if($document->state_type->id == '11')
     <div class="company_logo_box" style="position: absolute; text-align: center; top:30%;">
         <img src="data:{{mime_content_type(public_path("status_images".DIRECTORY_SEPARATOR."anulado.png"))}};base64, {{base64_encode(file_get_contents(public_path("status_images".DIRECTORY_SEPARATOR."anulado.png")))}}" alt="anulado" class="" style="opacity: 0.6;">
     </div>
 @endif
+
+@php
+
+if(isset($establishment->aditional_information)){
+    $watermark = '';
+
+    switch($establishment->aditional_information){
+        case "AGUA YURAQ" : 
+        $watermark = 'aguayuraq.jpg';
+        break;
+        case "SOLUCIONES INTEGRALES EAC":
+        $watermark = 'solinteac.jpg';
+        break;
+        case "SISTEMA INTEGRADO LEAFY":
+        $watermark = 'sistemaintegradoleafy.jpg';
+        break;
+        case "SOLUCIONES INFORMÁTICAS C4SOFTWARE":
+        $watermark = 'c4software.jpg';
+        break;
+    }
+@endphp
+<div class="item_watermark" style="position: absolute;">
+    <img src="data:{{mime_content_type(public_path("watermark".DIRECTORY_SEPARATOR."{$watermark}"))}};base64, {{base64_encode(file_get_contents(public_path("watermark".DIRECTORY_SEPARATOR."{$watermark}")))}}" alt="{{$establishment->aditional_information}}" class="" style="opacity: 0.3;width: 96%">
+</div>
+@php
+}
+@endphp
+
+
+
 <table class="full-width">
     <tr>
         @if($company->logo)
             <td width="20%">
                 <div class="company_logo_box">
-                    <img src="data:{{mime_content_type(public_path("storage/uploads/logos/{$company->logo}"))}};base64, {{base64_encode(file_get_contents(public_path("storage/uploads/logos/{$company->logo}")))}}" alt="{{$company->name}}" class="company_logo" style="max-width: 150px;">
+                    <img src="data:{{mime_content_type(public_path("{$establishment->logo}"))}};base64, {{base64_encode(file_get_contents(public_path("{$establishment->logo}")))}}" alt="{{$company->name}}" class="company_logo" style="max-width: 150px;">
                 </div>
             </td>
         @else
@@ -51,6 +84,15 @@
         @endif
         <td width="50%" class="pl-3">
             <div class="text-left">
+
+                
+                @isset($establishment->aditional_information)
+                    <h2>{{ ($establishment->aditional_information !== '-')? $establishment->aditional_information : '' }}</h2>
+                @endisset
+
+                <br>
+                {{$watermark}}
+
                 <h4 class="">{{ $company->name }}</h4>
                 <h5>{{ 'RUC '.$company->number }}</h5>
                 <h6 style="text-transform: uppercase;">
@@ -72,9 +114,7 @@
                     <h6>{{ ($establishment->web_address !== '-')? 'Web: '.$establishment->web_address : '' }}</h6>
                 @endisset
 
-                @isset($establishment->aditional_information)
-                    <h6>{{ ($establishment->aditional_information !== '-')? $establishment->aditional_information : '' }}</h6>
-                @endisset
+            
             </div>
         </td>
         <td width="30%" class="border-box py-4 px-2 text-center">
