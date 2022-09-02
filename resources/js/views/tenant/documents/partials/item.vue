@@ -339,7 +339,7 @@
     import ItemForm from '../../items/form.vue'
     import LotsGroup from './lots_group.vue'
 
-    import {calculateRowItem} from '../../../../helpers/functions'
+    import {calculateRowItem, calculateRowItem_10} from '../../../../helpers/functions'
     import WarehousesDetail from './select_warehouses.vue'
     import SelectLotsForm from './lots.vue'
 
@@ -357,7 +357,7 @@
             'isEditItemNote',
             'configuration',
             'documentTypeId',
-            'noteCreditOrDebitTypeId'
+            'noteCreditOrDebitTypeId','impuestojp'
         ],
         components: {ItemForm, WarehousesDetail, LotsGroup, SelectLotsForm, 'vue-ckeditor': VueCkeditor.component},
         data() {
@@ -805,7 +805,7 @@
 
                 if (this.validateTotalItem().total_item) return;
 
-                let unit_price = (this.form.has_igv)?this.form.unit_price_value:this.form.unit_price_value*1.18;
+                let unit_price = (this.form.has_igv)?this.form.unit_price_value:this.form.unit_price_value*(1+this.impuestojp);
 
                 this.form.input_unit_price_value = this.form.unit_price_value;
 
@@ -814,10 +814,20 @@
                 this.form.item.presentation = this.item_unit_type;
                 this.form.affectation_igv_type = _.find(this.affectation_igv_types, {'id': this.form.affectation_igv_type_id});
 
-                let IdLoteSelected = this.form.IdLoteSelected
-                let document_item_id = this.form.document_item_id
-                this.row = calculateRowItem(this.form, this.currencyTypeIdActive, this.exchangeRateSale);
+                let IdLoteSelected = this.form.IdLoteSelected;
+                let document_item_id = this.form.document_item_id;
 
+                // verificacmos el impuesto q obtuvimos de la otra pantalla
+                if(this.impuestojp==0.10)
+                {
+                    // mandamos el impuesto en la nueva funcion sino antigua funcion
+                 this.row = calculateRowItem_10(this.form, this.currencyTypeIdActive,
+                  this.exchangeRateSale, this.impuestojp);
+                  }
+                else
+                {
+                    this.row = calculateRowItem(this.form, this.currencyTypeIdActive, this.exchangeRateSale);
+                }
                 this.row.item.name_product_pdf = this.row.name_product_pdf || '';
                 if (this.recordItem) {
                     this.row.indexi = this.recordItem.indexi

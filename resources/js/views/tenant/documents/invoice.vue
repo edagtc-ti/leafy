@@ -565,7 +565,7 @@
             :operation-type-id="form.operation_type_id"
             :currency-type-id-active="form.currency_type_id"
             :exchange-rate-sale="form.exchange_rate_sale"
-            :typeUser="typeUser"
+            :typeUser="typeUser" :impuestojp="impuesto"
             :configuration="configuration"
             :editNameProduct="configuration.edit_name_product"
             @add="addRow"></document-form-item>
@@ -652,6 +652,8 @@
                     return time.getTime() > moment();
                   }
                 },
+                // creacion variable impuesto para controlar 
+                impuesto:0.18,
                 dateValid:false,
                 input_person:{},
                 showDialogDocumentDetraction:false,
@@ -713,6 +715,7 @@
             }
         },
         async created() {
+       
             await this.initForm()
             await this.$http.get(`/${this.resource}/tables`)
                 .then(response => {
@@ -755,6 +758,18 @@
                     this.changeDestinationSale()
                     this.changeCurrencyType()
                 })
+// detectamos el ruc comparamos y cambiamos el impuesto
+     let ruc_empresa = this.company.number;
+            console.log('se detecto ruc ',ruc_empresa)
+         if(ruc_empresa =='20513261641' || 
+            ruc_empresa =='2003002040857'
+          )
+          { this.impuesto=0.10;
+          console.log('se cambio el impuesto al 10%')
+        }
+
+
+
             this.loading_form = true
             this.$eventHub.$on('reloadDataPersons', (customer_id) => {
                 this.reloadDataCustomers(customer_id)
@@ -1061,7 +1076,7 @@
 
                 }
 
-                this.form.prepayments[index].total = (this.form.affectation_type_prepayment == 10) ? _.round(this.form.prepayments[index].amount * 1.18, 2) : this.form.prepayments[index].amount
+                this.form.prepayments[index].total = (this.form.affectation_type_prepayment == 10) ? _.round(this.form.prepayments[index].amount * (1+this.impuesto), 2) : this.form.prepayments[index].amount
 
                 this.changeTotalPrepayment()
 
@@ -1195,7 +1210,7 @@
                         this.form.total_discount =  _.round(amount,2)
                         this.form.total_taxed =  _.round(base - amount,2)
                         this.form.total_value =  _.round(base - amount,2)
-                        this.form.total_igv =  _.round(this.form.total_value * 0.18,2)
+                        this.form.total_igv =  _.round(this.form.total_value * this.impuesto,2)
                         this.form.total_taxes =  _.round(this.form.total_igv,2)
                         this.form.total =  _.round(this.form.total_value + this.form.total_taxes,2)
 
@@ -1216,7 +1231,7 @@
                             this.form.total_discount =  _.round(amount,2)
                             this.form.total_taxed =  _.round(base - amount,2)
                             this.form.total_value =  _.round(base - amount,2)
-                            this.form.total_igv =  _.round(this.form.total_value * 0.18,2)
+                            this.form.total_igv =  _.round(this.form.total_value * this.impuesto,2)
                             this.form.total_taxes =  _.round(this.form.total_igv,2)
                             this.form.total =  _.round(this.form.total_value + this.form.total_taxes,2)
 
@@ -1881,7 +1896,7 @@
 
                     this.form.total_discount =  _.round(amount,2)
                     this.form.total_value =  _.round(base - amount,2)
-                    this.form.total_igv =  _.round(this.form.total_value * 0.18,2)
+                    this.form.total_igv =  _.round(this.form.total_value * this.impuesto,2)
                     this.form.total_taxes =  _.round(this.form.total_igv,2)
                     this.form.total =  _.round(this.form.total_value + this.form.total_taxes,2)
 
