@@ -762,7 +762,7 @@
      let ruc_empresa = this.company.number;
             console.log('se detecto ruc ',ruc_empresa)
          if(ruc_empresa =='20513261641' || 
-            ruc_empresa =='2003002040857'
+            ruc_empresa =='20545876788'
           )
           { this.impuesto=0.10;
           console.log('se cambio el impuesto al 10%')
