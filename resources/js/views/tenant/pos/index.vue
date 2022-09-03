@@ -18,7 +18,7 @@
                 <h2>
                     <el-switch
                         v-model="search_item_by_barcode"
-                        active-text="Buscar con escaner de código de barras"
+                        :active-text="'Buscar con escaner de código de barras -impuesto '+(impuesto*100) +'%'"
                         @change="changeSearchItemBarcode"
                     ></el-switch>
                 </h2>
@@ -917,7 +917,7 @@
 
 <script>
 import Keypress from "vue-keypress";
-import {calculateRowItem} from "../../../helpers/functions";
+import {calculateRowItem, calculateRowItem_10} from "../../../helpers/functions";
 import PaymentForm from "./partials/payment.vue";
 import ItemForm from "./partials/form.vue";
 import {functions, exchangeRate} from "../../../mixins/functions";
@@ -944,6 +944,8 @@ export default {
 
     data() {
         return {
+            company:null,
+            impuesto:0.18,
             place: "cat",
             history_item_id: null,
             search_item_by_barcode: false,
@@ -994,6 +996,24 @@ export default {
         }
 
         await this.selectDefaultCustomer();
+
+  await this.$http.get(`/documents/tables`)
+                .then(response => {
+                 
+                    this.company = response.data.company;
+                    
+                })
+
+
+
+         let ruc_empresa = this.company.number;
+            console.log('se detecto ruc ',ruc_empresa)
+         if(ruc_empresa =='20513261641' || 
+            ruc_empresa =='20545876788'
+          )
+          { this.impuesto=0.10;
+          console.log('se cambio el impuesto al 10%')
+        }
     },
 
     computed: {
@@ -1285,10 +1305,10 @@ export default {
         },
         blurCalculateQuantity(index) {
 
-            this.row = calculateRowItem(
+            this.row = calculateRowItem_10(
                 this.form.items[index],
                 this.form.currency_type_id,
-                1
+                1,this.impuesto
             );
 
             // console.log(this.form.items[index])
@@ -1300,10 +1320,10 @@ export default {
             this.setFormPosLocalStorage();
         },
         blurCalculateQuantity2(index) {
-            this.row = calculateRowItem(
+            this.row = calculateRowItem_10(
                 this.form.items[index],
                 this.form.currency_type_id,
-                1
+                1,this.impuesto
             );
             this.form.items[index] = this.row;
             this.calculateTotal();
@@ -1489,6 +1509,8 @@ export default {
             this.setFormPosLocalStorage();
         },
         async clickAddItem(item, index, input = false) {
+
+            console.log('additem');
             this.loading = true;
             let exchangeRateSale = this.form.exchange_rate_sale;
 
@@ -1549,18 +1571,27 @@ export default {
 
                 let unit_price = exist_item.item.has_igv
                     ? exist_item.item.sale_unit_price
-                    : exist_item.item.sale_unit_price * 1.18;
+                    : exist_item.item.sale_unit_price * (1+this.impuesto);
                 // exist_item.unit_price = unit_price
                 exist_item.item.unit_price = unit_price;
 
                 exist_item.has_plastic_bag_taxes = exist_item.item.has_plastic_bag_taxes;
-
-                this.row = calculateRowItem(
+console.log('impuesto',this.impuesto)
+/*
+if(this.impuesto==0.18)
+              {  this.row = calculateRowItem(
                     exist_item,
                     this.form.currency_type_id,
                     exchangeRateSale
+                );}
+else*/
+  { this.row = calculateRowItem_10(
+                    exist_item,
+                    this.form.currency_type_id,
+                    exchangeRateSale, this.impuesto
                 );
-
+                
+                }
 
                 this.row["unit_type_id"] = item.unit_type_id;
 
@@ -1588,7 +1619,7 @@ export default {
 
                 let unit_price = this.form_item.has_igv
                     ? this.form_item.unit_price_value
-                    : this.form_item.unit_price_value * 1.18;
+                    : this.form_item.unit_price_value * (1+this.impuesto);
 
                 this.form_item.unit_price = unit_price;
                 this.form_item.item.unit_price = unit_price;
@@ -1605,10 +1636,10 @@ export default {
                 );
 
                 // console.log(this.form_item)
-                this.row = calculateRowItem(
+                this.row = calculateRowItem_10(
                     this.form_item,
                     this.form.currency_type_id,
-                    exchangeRateSale
+                    exchangeRateSale,this.impuesto
                 );
                 // console.log(this.row)
 
@@ -1911,10 +1942,10 @@ export default {
             let items = [];
             this.form.items.forEach(row => {
                 items.push(
-                    calculateRowItem(
+                    calculateRowItem_10(
                         row,
                         this.form.currency_type_id,
-                        this.form.exchange_rate_sale
+                        this.form.exchange_rate_sale,this.impuesto
                     )
                 );
             });
