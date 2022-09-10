@@ -42,7 +42,8 @@
                 <tr>
                     <td width="150" style="vertical-align: middle;">
     <!-- <span class="sc-kgAjT cuzzPp" style="margin-right: 20px; display: block;">
-    <img src="{{$_SERVER['APP_URL'].'/storage/uploads/logos/'.$company->logo}}" role="presentation" width="130" class="sc-cHGsZl bHiaRe" style="display:block;max-width: 130px;"></span> -->
+    <img src="{{$_SERVER['APP_URL'].'/storage/uploads/logos/'.$company->logo}}" role="presentation" width="130" class="sc-cHGsZl bHiaRe" style="display:block;max-width: 130px;">
+    </span> -->
                     </td>
                     <td style="vertical-align: middle;">
     <h3 color="#000000" class="sc-fBuWsC eeihxG" style="margin: 0px; font-size: 18px; color: rgb(0, 0, 0);"><span>{{ $document->user->name }}</span></h3>
