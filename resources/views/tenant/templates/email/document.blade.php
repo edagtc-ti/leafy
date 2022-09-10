@@ -33,11 +33,18 @@
 </ul>
 
 
-<table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;"><tbody><tr><td>
-    <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
-    <tbody><tr><td width="150" style="vertical-align: middle;"><span class="sc-kgAjT cuzzPp" style="margin-right: 20px; display: block;">
-    <img src="{{$_SERVER['APP_URL'].'/storage/uploads/logos/'.$company->logo}}" role="presentation" width="130" class="sc-cHGsZl bHiaRe" style="display:block;max-width: 130px;"></span></td>
-    <td style="vertical-align: middle;">
+<table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+<tbody>
+    <tr>
+        <td>
+            <table cellpadding="0" cellspacing="0" class="sc-gPEVay eQYmiW" style="vertical-align: -webkit-baseline-middle; font-size: medium; font-family: Arial;">
+            <tbody>
+                <tr>
+                    <td width="150" style="vertical-align: middle;">
+    <!-- <span class="sc-kgAjT cuzzPp" style="margin-right: 20px; display: block;">
+    <img src="{{$_SERVER['APP_URL'].'/storage/uploads/logos/'.$company->logo}}" role="presentation" width="130" class="sc-cHGsZl bHiaRe" style="display:block;max-width: 130px;"></span> -->
+                    </td>
+                    <td style="vertical-align: middle;">
     <h3 color="#000000" class="sc-fBuWsC eeihxG" style="margin: 0px; font-size: 18px; color: rgb(0, 0, 0);"><span>{{ $document->user->name }}</span></h3>
     <p color="#000000" font-size="medium" class="sc-fMiknA bxZCMx" style="margin: 0px; color: rgb(0, 0, 0); font-size: 14px; line-height: 22px;"><span>Asesor de ventas</span></p>
     <p color="#000000" font-size="medium" class="sc-dVhcbM fghLuF" style="margin: 0px; font-weight: 500; color: rgb(0, 0, 0); font-size: 14px; line-height: 22px;"><span>{{ $company->name }}<br>{{ 'RUC '.$company->number }}</span></p></td>
