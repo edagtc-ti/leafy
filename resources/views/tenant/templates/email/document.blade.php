@@ -30,6 +30,7 @@
     <li>Fecha de emisión: {{ $document->date_of_issue->format('d/m/Y') }}</li>
     <li>Nro. de comprobante: {{ $document->series.'-'.$document->number }}</li>
     <li>Total: {{ $document->total }}</li>
+    <li>{{$_SERVER['APP_URL']}}</li>
 </ul>
 
 
